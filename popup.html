@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<title>FB Guard Pro</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{width:440px;background:#0f172a;color:#e2e8f0;font-family:system-ui,'Segoe UI',sans-serif;font-size:13px;max-height:680px;overflow-y:auto}
+
+
+
+/* Header */
+.hdr{background:linear-gradient(135deg,#1e3a8a,#312e81);padding:12px 16px;display:flex;align-items:center;gap:10px;position:sticky;top:0;z-index:30}
+.hdr-icon{font-size:22px}
+.hdr-text h1{font-size:13px;font-weight:700;color:#fff}
+.hdr-text p{font-size:10px;color:#93c5fd;margin-top:1px}
+.ver-tag{margin-left:auto;font-size:9px;color:#4f46e5;background:#1e1b4b;padding:2px 7px;border-radius:10px}
+
+/* Tabs */
+.tabs{display:flex;background:#020617;border-bottom:1px solid #1e293b;position:sticky;top:56px;z-index:20;flex-wrap:wrap}
+.tab{flex:1;padding:8px 3px;text-align:center;cursor:pointer;font-size:9px;color:#475569;border-bottom:2px solid transparent;white-space:nowrap;transition:all .15s;min-width:44px}
+.tab:hover{color:#94a3b8}
+.tab.on{color:#38bdf8;border-bottom-color:#38bdf8;background:#0f172a}
+
+/* Pages */
+.page{display:none;padding:10px}
+.page.on{display:block}
+
+/* Card */
+.card{background:#1e293b;border:1px solid #334155;border-radius:10px;padding:10px;margin-bottom:10px}
+.card h3{font-size:10px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
+
+/* Inputs */
+input[type=text],input[type=password],textarea,select{
+  width:100%;background:#0f172a;border:1px solid #334155;border-radius:8px;
+  color:#e2e8f0;padding:7px 10px;font-size:11px;margin-top:5px;outline:none;
+  resize:vertical;font-family:inherit;transition:border-color .15s}
+input:focus,textarea:focus,select:focus{border-color:#38bdf8}
+select{cursor:pointer}
+
+/* Buttons */
+button{border:none;border-radius:8px;padding:8px 10px;font-size:11px;font-weight:700;cursor:pointer;
+  transition:opacity .15s,transform .1s;width:100%;margin-top:6px}
+button:hover{opacity:.88;transform:translateY(-1px)}
+button:disabled{opacity:.5;cursor:not-allowed;transform:none}
+.bp{background:#1d4ed8;color:#fff}
+.bpu{background:#7c3aed;color:#fff}
+.bg{background:#15803d;color:#fff}
+.br{background:#b91c1c;color:#fff}
+.bo{background:#b45309;color:#fff}
+.bc{background:#0e7490;color:#fff}
+.bi{background:#4f46e5;color:#fff}
+.bgr{background:#334155;color:#e2e8f0}
+.row{display:flex;gap:6px}.row button{flex:1}
+
+/* Output */
+.out{background:#020617;border:1px solid #1e293b;border-radius:8px;padding:8px 10px;
+  font-size:11px;min-height:34px;max-height:160px;overflow-y:auto;margin-top:6px;
+  white-space:pre-wrap;word-break:break-word;color:#64748b;line-height:1.5}
+.out.ok{color:#4ade80;border-color:#166534}
+.out.er{color:#f87171;border-color:#7f1d1d}
+
+/* Live detect banner */
+.live-banner{background:#1e293b;border:1px solid #1e40af;border-radius:8px;padding:8px;
+  margin-bottom:8px;font-size:11px;display:none}
+.live-banner.show{display:block}
+.live-risk{color:#fca5a5;font-weight:700;margin-bottom:4px}
+.live-txt{color:#64748b;word-break:break-word}
+
+/* Status row */
+.srow{display:flex;align-items:center;gap:8px;font-size:11px;margin-bottom:6px}
+.dot{width:8px;height:8px;border-radius:50%;background:#334155;flex-shrink:0}
+.dot.g{background:#22c55e;box-shadow:0 0 5px #22c55e80}
+.dot.r{background:#ef4444}
+.dot.y{background:#eab308}
+
+/* KV */
+.kv{display:flex;justify-content:space-between;font-size:11px;margin-top:5px}
+.kv span:first-child{color:#64748b}
+.kv span:last-child{color:#e2e8f0;font-family:monospace}
+
+small{font-size:10px;color:#475569;display:block;margin-top:4px}
+a{color:#38bdf8}
+.badge{font-size:8px;padding:1px 6px;border-radius:10px;background:#22c55e;color:#000;margin-left:4px}
+</style>
+</head>
+<body>
+
+<div class="hdr">
+  <div class="hdr-icon">🛡️</div>
+  <div class="hdr-text">
+    <h1>FB Guard Pro</h1>
+    <p>Facebook &amp; YouTube — Bypass + AI + Growth</p>
+  </div>
+  <span class="ver-tag">v6.0</span>
+</div>
+
+<div class="tabs">
+  <div class="tab on"  data-p="bypass">Bypass</div>
+  <div class="tab"     data-p="ai">AI</div>
+  <div class="tab"     data-p="growth">Growth</div>
+  <div class="tab"     data-p="seo">SEO</div>
+  <div class="tab"     data-p="verify">Verify</div>
+  <div class="tab"     data-p="custom">Custom</div>
+  <div class="tab"     data-p="settings">Set</div>
+</div>
+
+<!-- ═══ BYPASS ═══════════════════════════════════════════════ -->
+<div id="p-bypass" class="page on">
+
+  <!-- Live from page -->
+  <div id="live-banner" class="live-banner">
+    <div id="live-risk" class="live-risk"></div>
+    <div id="live-txt"  class="live-txt"></div>
+    <button class="bp" id="liveBypassBtn" style="margin-top:6px">⚡ Page এর text bypass করুন</button>
+  </div>
+
+  <div class="card">
+    <h3>⚡ Offline Bypass <span class="badge">INSTANT</span></h3>
+    <div class="srow"><div class="dot y" id="d-dot"></div><span id="d-label" style="color:#94a3b8">Page থেকে auto detect হবে...</span></div>
+    <textarea id="bypIn" rows="3" placeholder="Text paste করুন অথবা page এ লিখুন..."></textarea>
+    <select id="patSel" style="margin-top:6px">
+      <option value="zws">🔵 Invisible ZWS — খুন দেখায় কিন্তু bypass হয় ✅ Best</option>
+      <option value="apostrophe">Apostrophe ( খ'ুন )</option>
+      <option value="slash">Slash ( খু/ন )</option>
+    </select>
+    <div class="row">
+      <button class="bp"  id="offBtn">⚡ Offline Bypass</button>
+      <button class="bpu" id="aiBypassBtn">🤖 AI Bypass</button>
+    </div>
+    <div id="bypOut" class="out">Output এখানে আসবে...</div>
+    <div class="row" style="margin-top:6px">
+      <button class="bgr" id="copyBypBtn">📋 Copy</button>
+      <button class="bgr" id="restoreBtn">↩️ Restore</button>
+      <button class="bgr" id="clearBtn">🗑️ Clear</button>
+    </div>
+    <small>Offline = instant, API key লাগে না। AI = Gemini দিয়ে smarter bypass।</small>
+  </div>
+
+  <div class="card">
+    <h3>🖼️ Thumbnail Check</h3>
+    <input type="file" id="thumbFile" accept="image/*" style="color:#64748b">
+    <div id="thumbPrev" style="font-size:10px;color:#64748b;margin-top:4px"></div>
+    <button class="bo" id="thumbBtn">🖼️ Check Thumbnail SAFE?</button>
+    <div id="thumbOut" class="out">Image select করে check করুন...</div>
+  </div>
+</div>
+
+<!-- ═══ AI ════════════════════════════════════════════════════ -->
+<div id="p-ai" class="page">
+  <div class="card">
+    <h3>🤖 AI Suite</h3>
+    <textarea id="aiIn" rows="2" placeholder="News caption / title..."></textarea>
+    <button class="bpu" id="aiRewriteBtn">✨ AI Safe Rewrite</button>
+    <button class="br"  id="viralBtn" style="background:#ef4444">🔥 Viral Title Suggest</button>
+    <button class="bg"  id="hashtagBtn">️#️⃣ Hashtag Generator</button>
+    <button class="bgr" id="translateBtn">🌍 Auto Translate Safe BN→EN</button>
+    <div id="aiOut" class="out">Output এখানে আসবে...</div>
+    <button class="bgr" id="copyAiBtn" style="margin-top:4px">📋 Copy</button>
+  </div>
+</div>
+
+<!-- ═══ GROWTH ════════════════════════════════════════════════ -->
+<div id="p-growth" class="page">
+  <div class="card">
+    <h3>📈 Growth Tools</h3>
+    <textarea id="growIn" rows="2" placeholder="News title for growth..."></textarea>
+    <button class="bpu" id="bestTimeBtn" style="background:#a855f7">⏰ Best Time Suggest</button>
+    <button class="bc"  id="sentimentBtn">💭 Sentiment + Reach Risk</button>
+    <button class="bo"  id="plagBtn">🔍 Plagiarism + Unique Score</button>
+    <button class="br"  id="trendBtn">🔥 Trending Hashtag Live</button>
+    <textarea id="compIn" rows="2" placeholder="Competitor titles paste করো..." style="margin-top:8px"></textarea>
+    <button class="bi"  id="compBtn">⚔️ Competitor Tracker</button>
+    <div id="growOut" class="out">Output এখানে আসবে...</div>
+    <button class="bgr" id="copyGrowBtn" style="margin-top:4px">📋 Copy</button>
+  </div>
+</div>
+
+<!-- ═══ SEO ════════════════════════════════════════════════════ -->
+<div id="p-seo" class="page">
+  <div class="card">
+    <h3>🔍 SEO Tag from Title</h3>
+    <textarea id="seoIn" rows="2" placeholder="YouTube title লিখো..."></textarea>
+    <button class="bg" id="seoBtn">Generate SEO Tags + Keywords + Desc</button>
+    <div id="seoOut" class="out">Output এখানে আসবে...</div>
+    <button class="bgr" id="copySeoBtn" style="margin-top:4px">📋 Copy</button>
+    <small>Title follow করে 15 tags + 5 keywords + SEO desc দেবে — monetization safe</small>
+  </div>
+</div>
+
+<!-- ═══ VERIFY ════════════════════════════════════════════════ -->
+<div id="p-verify" class="page">
+  <div class="card" style="border-color:#166534">
+    <h3>🕵️ Fake News Detector</h3>
+    <textarea id="fakeIn" rows="3" placeholder="News টা paste করো, fake কিনা check করবো..."></textarea>
+    <button class="bg" id="fakeBtn">Check Fake / Real?</button>
+    <div id="fakeOut" class="out">Output এখানে আসবে...</div>
+    <button class="bgr" id="copyFakeBtn" style="margin-top:4px">📋 Copy</button>
+  </div>
+  <div class="card" style="border-color:#92400e">
+    <h3>📊 Live Trending Dashboard</h3>
+    <small style="margin-bottom:6px">BD তে এখন কী trending চলছে</small>
+    <button class="bo" id="trendDashBtn" style="margin-top:8px">🔴 Load Live Trending Now</button>
+    <div id="trendOut" class="out" style="max-height:200px">Output এখানে আসবে...</div>
+    <button class="bgr" id="copyTrendBtn" style="margin-top:4px">📋 Copy</button>
+  </div>
+</div>
+
+<!-- ═══ CUSTOM ════════════════════════════════════════════════ -->
+<div id="p-custom" class="page">
+  <div class="card">
+    <h3>Custom Words <span class="badge">SYNC</span></h3>
+    <input type="text" id="cwOrig"  placeholder="Original word: গুম">
+    <input type="text" id="cwApo"   placeholder="Apostrophe style: গু'ম">
+    <input type="text" id="cwSlash" placeholder="Slash style: গু/ম">
+    <button class="bg" id="addCwBtn">➕ Add Custom Word</button>
+    <div id="cwList" style="margin-top:8px"></div>
+  </div>
+</div>
+
+<!-- ═══ SETTINGS ══════════════════════════════════════════════ -->
+<div id="p-settings" class="page">
+
+  <div class="card" id="devInfo">
+    <h3>🛡️ License Status</h3>
+    <div class="kv">
+      <span>Device ID</span>
+      <span id="devIdShow" style="font-size:9px;color:#475569;word-break:break-all">Loading...</span>
+    </div>
+    <div class="kv" style="margin-top:4px">
+      <span>Status</span>
+      <span id="licBadge" style="font-weight:700;font-size:11px">—</span>
+    </div>
+    <button class="bg" id="checkLicBtn" style="margin-top:8px">🔄 License Check করুন</button>
+    <div id="licMsg" style="font-size:10px;margin-top:5px;color:#94a3b8"></div>
+  </div>
+
+  <div class="card">
+    <h3>🔑 Gemini API Key</h3>
+    <div class="srow"><div class="dot r" id="keyDot"></div><span id="keySt" style="font-size:11px;color:#f87171">Key নেই — Offline only</span></div>
+    <input type="password" id="apiKey" placeholder="আপনার Gemini API Key এখানে দিন...">
+    <button class="bp" id="saveKeyBtn">💾 Save API Key</button>
+    <small>Key নিন: <a href="https://aistudio.google.com/app/apikey" target="_blank">aistudio.google.com/app/apikey</a><br>
+    যেকোনো format কাজ করবে — extension নিজেই try করবে।</small>
+  </div>
+
+  <div class="card">
+    <h3>📊 Google Sheet URL</h3>
+    <input type="text" id="sheetUrl" placeholder="https://script.google.com/macros/s/...">
+    <button class="bg" id="saveSheetBtn">💾 Save Sheet URL</button>
+  </div>
+
+
+
+  <div class="card">
+    <h3>⚙️ Default Pattern</h3>
+    <select id="defPat">
+      <option value="zws">🔵 Invisible ZWS — খুন দেখায় কিন্তু bypass হয় ✅ Best</option>
+      <option value="apostrophe">Apostrophe — খ'ুন হ'ত্যা</option>
+      <option value="slash">Slash — খু/ন হ/ত্যা</option>
+    </select>
+    <button class="bgr" id="savePatBtn">Save Pattern</button>
+  </div>
+
+  <div class="card">
+    <h3>🧪 Quick Test</h3>
+    <div class="row">
+      <button class="bgr" id="testOffBtn">⚡ Test Offline</button>
+      <button class="bpu" id="testAiBtn">🤖 Test AI</button>
+    </div>
+    <div id="testOut" class="out" style="min-height:50px">Test result এখানে...</div>
+  </div>
+
+  <div class="card">
+    <h3>ℹ️ Info</h3>
+    <div class="kv"><span>Version</span><span>6.1</span></div>
+    <div class="kv"><span>Primary Model</span><span>gemini-3.6-flash ✅</span></div>
+    <div class="kv"><span>Fallbacks</span><span>3.7 → 3.5 → 2.0 → 1.5</span></div>
+    <div class="kv"><span>Default Pattern</span><span>ZWS invisible</span></div>
+    <div class="kv"><span>Platforms</span><span>FB + YouTube</span></div>
+  </div>
+
+</div>
+
+<script src="popup.js"></script>
+</body>
+</html>
